@@ -89,14 +89,12 @@ def player_bust_check(card_total):
     else:
         return None           
 
-    
-Player_name = input("Please enter your name: ")
-Player1= Player(Player_name)
+Player1= Player(input("Please enter your name: "))
 d_cards = deck(int(input("No. of Decks: ")))
-print("Welcome to BlackJack 21 {}!. Have fun. BTW, free 100$ to play 4 the babezz!".format(Player_name))
+print("Welcome to BlackJack 21 {}!. Have fun. BTW, free 100$ to play 4 the babezz!".format(Player1.name))
 
 if True:
-    ready = input("Ready to play? y/n ")
+    ready = input(f"Ready to play {Player1.name}? y/n ")
     while (ready == "y" and Player1.balance > 15): 
         playing = True
         dealer_cards = {}
@@ -107,7 +105,7 @@ if True:
             except ValueError:
                 print("I repeat the Minimum bet is 15$. Place your bet again")
                 continue 
-            if input_bet >= 15:
+            if input_bet in range(15, Player1.balance+1):
                 break 
             
 
@@ -186,7 +184,7 @@ if True:
 
             elif move.lower() == "double down":
                 if (card_total in (8, 9 ,10, 11) and len(player_cards) == 2):
-                    print("Free Double on the HOUSE")
+                    print("Doubling!")
                     input_bet = input_bet * 2
                     card = random.choice(list(d_cards.items()))
                     player_cards[card[0]] = card[1] 
@@ -217,7 +215,7 @@ if True:
 
             elif move.lower() == "split":
                 if list(player_cards.keys())[0][0] == list(player_cards.keys())[1][0]:
-                    print("No free Splits from the house!")
+                    print("Spliting!")
                     deck1 = {}
                     deck2 = {} 
                     print("Splitting into two decks")
